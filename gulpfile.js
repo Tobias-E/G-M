@@ -4,7 +4,7 @@ const rename = require("gulp-rename");
 const connect = require("gulp-connect");
 const sass = require("gulp-sass");
 const babel = require("gulp-babel");
-/* const imagemin = require("gulp-imagemin"); */
+const imagemin = require("gulp-imagemin");
 
 sass.compiler = require("node-sass");
 
@@ -64,8 +64,7 @@ function watchJson() {
 	gulp.watch("./src/json/*.json", { ignoreInitial: false }, json);
 }
 
-// Install imagemin first
-/* function images(done) {
+function images(done) {
 	gulp.src("./src/images/*")
 		.pipe(imagemin())
 		.pipe(gulp.dest("./dist/assets/images"))
@@ -75,14 +74,14 @@ function watchJson() {
 
 function watchImages() {
 	gulp.watch("./src/images/*", { ignoreInitial: false }, images);
-} */
+}
 
 gulp.task("dev", function(done) {
 	watchHtml();
 	watchScss();
 	watchJavascript();
 	watchJson();
-	//watchImages();
+	watchImages();
 	connect.server({
 		livereload: true,
 		root: "dist"
@@ -95,6 +94,6 @@ gulp.task("build", function(done) {
 	scss();
 	javascript();
 	json();
-	//images();
+	images();
 	done();
 });
